@@ -1,0 +1,7 @@
+/so101_ws/src/*
+/so101_ws/log
+/so101_ws/build
+/so101_ws/install
+!/so101_ws/src/so101_ros2
+/docker/Dockerfile
+/answers

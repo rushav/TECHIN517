@@ -1,0 +1,55 @@
+ARG CUDA_VERSION=12.4.1
+ARG OS_VERSION=22.04
+
+FROM nvidia/cuda:${CUDA_VERSION}-base-ubuntu${OS_VERSION} AS build
+
+### lerobot dependencies ###
+# TODO:
+# refer to this lerobot Dockerfile to see how they install dependencies
+# https://github.com/huggingface/lerobot/blob/b74e2a61133b695eca35997334f22389321ed6db/docker/Dockerfile.internal
+# we don't need to use `uv` because we want lerobot and ros to share a python environment
+# you will need everything between "ARG PYTHON_VERSION=3.10"
+# to python${PYTHON_VERSION}-dev
+
+### ros ###
+# TODO:
+# install ros2 humble
+# checkout the official Dockerfiles to see how
+# https://github.com/osrf/docker_images/tree/master/ros/humble/ubuntu/jammy
+
+# extra tools for installing more tools later
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3-pip \
+    python-is-python3
+
+
+### dev ###
+# It’s common to separate images for different purposes (build, dev, runtime).
+# You can do this with:
+#   - multiple Dockerfiles, each building its own image, or
+#   - a single Dockerfile with multiple build stages (multiple FROM lines)
+#     then choose which stage to build using `--target`
+# This stage reuses everything from the `build` stage and adds dev tools
+FROM build AS dev 
+
+### change user ###
+# TODO
+# set the username as "ubuntu"
+# you can reference the Dockerfile from TECHIN 516, or ros2 humble Dockerfiles from ijnek
+# https://github.com/GIXLabs/TECHIN516/blob/main/turtlebot4_ws/.devcontainer/Dockerfile
+
+RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
+    vim \
+    nano \
+    less \
+    tmux
+
+RUN echo "export PATH=\"$HOME/.local/bin:$PATH\"" >> /home/ubuntu/.bashrc && \
+    echo "source /opt/ros/humble/setup.bash" >> /home/ubuntu/.bashrc  && \
+    echo "source /home/ubuntu/TECHIN517/so101_ws/install/setup.bash" >> /home/ubuntu/.bashrc
+
+# Default shell
+CMD ["/bin/bash"]
+
+# TODO
+# rename this file to "Dockerfile"
