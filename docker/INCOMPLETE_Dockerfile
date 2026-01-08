@@ -1,26 +1,23 @@
-ARG CUDA_VERSION=12.4.1
-ARG OS_VERSION=22.04
+### base Docker image ###
+# TODO: build onto humble-desktop-full docker image
+FROM # TODO # AS build
 
-FROM nvidia/cuda:${CUDA_VERSION}-base-ubuntu${OS_VERSION} AS build
+RUN apt upgrade
 
-### lerobot dependencies ###
-# TODO:
-# refer to this lerobot Dockerfile to see how they install dependencies
-# https://github.com/huggingface/lerobot/blob/b74e2a61133b695eca35997334f22389321ed6db/docker/Dockerfile.internal
-# we don't need to use `uv` because we want lerobot and ros to share a python environment
-# you will need everything between "ARG PYTHON_VERSION=3.10"
-# to python${PYTHON_VERSION}-dev
+### basic tools ###
+RUN apt update && apt install -y \
+    git \
+    vim \
+    tmux \
+    less 
 
-### ros ###
-# TODO:
-# install ros2 humble
-# checkout the official Dockerfiles to see how
-# https://github.com/osrf/docker_images/tree/master/ros/humble/ubuntu/jammy
-
-# extra tools for installing more tools later
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3-pip \
-    python-is-python3
+### techin 517 ros dependencies ###
+# TODO: install ros dependencies for this quarter
+# follow the installation example above
+# install moveit
+# https://moveit.ai/install-moveit2/binary/
+# install realsense
+# https://github.com/realsenseai/realsense-ros
 
 
 ### dev ###
@@ -30,7 +27,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #   - a single Dockerfile with multiple build stages (multiple FROM lines)
 #     then choose which stage to build using `--target`
 # This stage reuses everything from the `build` stage and adds dev tools
-FROM build AS dev 
+FROM build AS dev
 
 ### change user ###
 # TODO
@@ -38,18 +35,18 @@ FROM build AS dev
 # you can reference the Dockerfile from TECHIN 516, or ros2 humble Dockerfiles from ijnek
 # https://github.com/GIXLabs/TECHIN516/blob/main/turtlebot4_ws/.devcontainer/Dockerfile
 
-RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
-    vim \
-    nano \
-    less \
-    tmux
+### ros setup ###
+# rosdep update
+RUN rosdep update
+# .bashrc ROS settings
+RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
+RUN echo "source /home/ubuntu/techin517/so101_ws/install/setup.bash" >> ~/.bashrc
+RUN echo "export ROS_LOCALHOST_ONLY=1" >> ~/.bashrc
+RUN echo "export LECONDA_SITE_PACKAGES=\"/home/ubuntu/miniconda3/envs/lerobot_ros2/lib/python3.10/site-packages\"" >> ~/.bashrc
+RUN echo "export LEROBOT_SRC=\"/home/ubuntu/techin517/third_party/lerobot/src/lerobot\"" >> ~/.bashrc
+RUN echo "export SO101BRIDGE_INSTALL_SITE_PACKAGES=\"/home/ubuntu/techin517/so101_ws/install/so101_ros2_bridge/lib/python3.10/site-packages/lerobot\"" >> ~/.bashrc
 
-RUN echo "export PATH=\"$HOME/.local/bin:$PATH\"" >> /home/ubuntu/.bashrc && \
-    echo "source /opt/ros/humble/setup.bash" >> /home/ubuntu/.bashrc  && \
-    echo "source /home/ubuntu/TECHIN517/so101_ws/install/setup.bash" >> /home/ubuntu/.bashrc
-
-# Default shell
-CMD ["/bin/bash"]
+CMD ["bash"]
 
 # TODO
 # rename this file to "Dockerfile"

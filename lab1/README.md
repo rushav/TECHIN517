@@ -2,13 +2,14 @@
 
 In this quarter, we will survey AI in robotics with robot arms.  
 We will use the [SO101 arm](https://github.com/TheRobotStudio/SO-ARM100) to explore imitation learning, computer vision, and reinforcement learning.  
-The first step is to assemble the arms and configure the working environment: 
+The first step is to assemble the arms and configure the working environment.  
+By the end of this lab, you should have lerobot installed in conda on your host operating system, and ROS installed in a Docker devcontainer.
 
 
 ## Learning Objectives
 
 - Assemble and calibrate a robot arm.
-- Configure a Docker container to develop the arm with ROS, Isaac, and Lerobot.
+- Configure a Docker container to develop the arm with ROS.
 
 
 ## TODO
@@ -16,25 +17,30 @@ The first step is to assemble the arms and configure the working environment:
 1. Collect a robot arm kit from the instructors.  
 Fill out the included packing slip to confirm you recieved all necessary parts.  
 
-2. Fill out the partial [Dockerfile](/so101_ws/.devcontainer/Dockerfile).  
+2. Follow [Lerobot's installation instructions](https://huggingface.co/docs/lerobot/installation) to set up conda and the lerobot environment.  
+Make sure you install miniconda in your home directory.  
+I had to follow their troubleshooting guide to get everything to work.  
+Install `'lerobot[all]'` instead of `pip install -e .` or `pip install lerobot`.
+
+3. Follow the [instructions](https://huggingface.co/docs/lerobot/en/so101) to assemble, configure, and calibrate the arms.  
+Use the name on the side of the robot for the calibration name.  
+
+4. Fill out the partial [Dockerfile](/docker/INCOMPLETE_Dockerfile).  
 Follow the `TODO` comments in the file.  
 You should not need to modify the `devcontainer.json` or `setup.sh` files.  
 Your `Dockerfile` should work with these other configurations to create a working dev environment.  
-We will use a separate container to use Isaac Sim.  
-
-3. Follow the [instructions](https://huggingface.co/docs/lerobot/en/so101) to assemble, configure, and calibrate the arms.  
-Use the arm name on the sticker for the calibration name.  
+We will use a separate container to use Isaac Sim later.  
 
 
 ## Deliverables 
 
 1. Return the packing slip that came with the kit with everyone's name to confirm you recieved all the necessary parts.  
 
-2. Submit your Dockerfile.
-
-3. Submit a video of you teleoperating the robot arm.  
+2. Submit a video of you teleoperating the robot arm.  
 You might need to wait on another team to finish assembling their leader / follower arm.  
 Please be patient with the other team(s) and assemble your arm as soon as possible.
+
+3. Submit your Dockerfile.
 
 4. Submit a screenshot of the SO101 arm in Rviz2 in the Docker container.
 
