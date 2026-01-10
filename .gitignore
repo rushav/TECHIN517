@@ -4,4 +4,7 @@
 /so101_ws/install
 !/so101_ws/src/so101_ros2
 /docker/Dockerfile
+/outputs
+/calibration
+/isaac_so101
 /answers

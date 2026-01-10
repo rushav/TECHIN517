@@ -3,13 +3,14 @@
 In this quarter, we will survey AI in robotics with robot arms.  
 We will use the [SO101 arm](https://github.com/TheRobotStudio/SO-ARM100) to explore imitation learning, computer vision, and reinforcement learning.  
 The first step is to assemble the arms and configure the working environment.  
-By the end of this lab, you should have lerobot installed in conda on your host operating system, and ROS installed in a Docker devcontainer.
+Many of the labs for this course assume you have a GPU that works with Nvidia technologies.  
+If you do not, please use the desktops in the robotics lab area.  
 
 
 ## Learning Objectives
 
 - Assemble and calibrate a robot arm.
-- Configure a Docker container to develop the arm with ROS.
+- Configure a Docker container to develop the arm with ROS, lerobot, and GPUs.
 
 
 ## TODO
@@ -17,19 +18,24 @@ By the end of this lab, you should have lerobot installed in conda on your host 
 1. Collect a robot arm kit from the instructors.  
 Fill out the included packing slip to confirm you recieved all necessary parts.  
 
-2. Follow [Lerobot's installation instructions](https://huggingface.co/docs/lerobot/installation) to set up conda and the lerobot environment.  
-Make sure you install miniconda in your home directory.  
-I had to follow their troubleshooting guide to get everything to work.  
-Install `'lerobot[all]'` instead of `pip install -e .` or `pip install lerobot`.
+2. Configure your Docker install to work with Nvidia GPUs:  
+Run the following command to make sure your GPU drivers are installed:  
+    ```bash
+    nvidia-smi
+    ```  
+    This should print information about your GPU, otherwise you will need to install the right drivers.  
+    Next you will need to install [Nvidia's container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html).
+    Follow the instructions for Debian / Ubuntu.  
 
-3. Follow the [instructions](https://huggingface.co/docs/lerobot/en/so101) to assemble, configure, and calibrate the arms.  
-Use the name on the side of the robot for the calibration name.  
-
-4. Fill out the partial [Dockerfile](/docker/INCOMPLETE_Dockerfile).  
+3. Fill out the partial [Dockerfile](/docker/INCOMPLETE_Dockerfile).  
 Follow the `TODO` comments in the file.  
 You should not need to modify the `devcontainer.json` or `setup.sh` files.  
 Your `Dockerfile` should work with these other configurations to create a working dev environment.  
 We will use a separate container to use Isaac Sim later.  
+
+4. Follow the [instructions](https://huggingface.co/docs/lerobot/en/so101) to assemble, configure, and calibrate the arms.  
+Use the name on the side of the robot for the calibration name.  
+If you configured your container properly, all lerobot command should work properly.  
 
 
 ## Deliverables 
@@ -50,6 +56,9 @@ If you need to update the calibration at any point, make sure to update the file
 
 
 ## FAQ
+
+**Q:** I have a GPU but `nvidia-smi` doesn't print anything, how do I install the drivers?  
+**A:** Open the "Software and Updates" program and look for drivers under the "Additional Drivers" section.  
 
 **Q:** My motors aren't working, why?  
 **A:** You might need to update the motor's firmware.  
