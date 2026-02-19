@@ -122,6 +122,11 @@ Consider training your models on your personal devices overnight to reduce relia
 **Q:** Do we have to use 2 arms?  
 **A:** Your project must meet all project requirements.
 
+**Q:** Can we change the hardware?  
+**A:** Multiple teams need to share these robot arms.  
+Therefore, you can potentially add hardware and external tools if your project requires.  
+You must be able to rapidly return the robot to its base configuration to allow other teams to use it.
+
 
 ## Resources
 
@@ -136,3 +141,12 @@ Given that they have far more resources, you are not expected to be able to repl
 GR00T is NVIDIA's VLA model for general robotics.  
 It has integrations with their other systems like Isaac Lab, Cosmos, and Isaac ROS.  
 Their documentation is lacking and frustrating, so it is recommended to begin with a different VLA model until your requirements necessitate GR00T's features.
+
+**Project Examples**
+- [Making espresso coffee](https://www.youtube.com/watch?v=iG2fHqa6ohk)
+- [Folding laundry](https://www.youtube.com/watch?v=Oa19cq_MxE0)
+- [Scanning and sorting objects](https://www.youtube.com/shorts/i2JHWBzwPcs)
+- [Folding boxes](https://www.youtube.com/shorts/MY-_ehZJ884)
+- [Making a burger](https://www.youtube.com/watch?v=oDJuD95Sua0)
+- [Making matcha tea](https://www.youtube.com/watch?v=FEa4-pXqAoE&t=2s)
+- [Playing in the dirt](https://www.linkedin.com/posts/isaac-blankenau_ros2-lerobot-robotlearning-activity-7387233936571056128-kPhn)
