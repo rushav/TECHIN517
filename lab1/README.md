@@ -40,51 +40,52 @@ Run the following command to make sure your GPU drivers are installed:
     Next you will need to install [Nvidia's container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html).
     Follow the instructions for Debian / Ubuntu.  
 
-3. Fill out the partial [Dockerfile](/docker/INCOMPLETE_Dockerfile).  
-Follow the `TODO` comments in the file.  
-You should not need to modify the `devcontainer.json` or `setup.sh` files.  
-Your `Dockerfile` should work with these other configurations to create a working dev environment.  
-We will use a separate container to use Isaac Sim later.  
+3. Fill out the partial [Dockerfile](/docker/INCOMPLETE_Dockerfile):  
+    Follow the `TODO` comments in the file.  
+    You should not need to modify the `devcontainer.json` or `setup.sh` files.  
+    Your `Dockerfile` should work with these other configurations to create a working dev environment.  
+    We will use a separate container to use Isaac Sim later.  
 
-4. Follow the [instructions](https://huggingface.co/docs/lerobot/en/so101) to configure and calibrate the arms.  
-Use the name on the side of the robot for the calibration name.  
-If you configured your container properly, all lerobot command should work properly.  
+4. Follow the [instructions](https://huggingface.co/docs/lerobot/en/so101) to configure and calibrate the arms:  
+    Use the name on the side of the robot for the calibration name.  
+    If you configured your container properly, all lerobot command should work properly.  
 
-5. Read through [LeRobot's guide](https://huggingface.co/docs/lerobot/il_robots) on imitation learning.  
-Follow [the guide to teleoperate using a camera](https://huggingface.co/docs/lerobot/cameras#setup-cameras).  
-Use both the wrist-mounted camera and the overhead depth camera.  
+5. Read through [LeRobot's tutorial](https://huggingface.co/docs/lerobot/il_robots) on imitation learning:  
+    Follow [the guide to teleoperate using a camera](https://huggingface.co/docs/lerobot/cameras#setup-cameras).  
+    Use both the wrist-mounted camera and the overhead depth camera.  
 
-6. Train the policy again after 50 total examples.  
+6. Train an ACT policy using 50 examples and run inference:  
     We highly recommend recording a couple episodes before going for all 50 to ensure everything is working properly.  
-    Hihgly recommend recording with the following argument to avoid additional setup:
+    Highly recommend recording with the following argument to avoid additional setup:
     ```bash
     --dataset.push_to_hub=False
     ```
+    **You can train lerobot policies using your mac by following the normal lerobot conda installation guide**  
+    By training with your personal device, you can let other students use the school computers.  
     Highly recommend training with the following argument to avoid additional setup:
     ```bash
     --push_to_hub=false
     ```
     **Plan for training to take a few hours**  
-    Record a video of running inference after 50 examples.
+    We will be training many policies this quarter.  
+    By using your personal device(s) instead of school computers, you can train overnight and sleep easy knowing that no one will interfere with the process.  
+    Record a video of running your policy trained with 50 examples.
+
+7. Save your training dataset and trained policy for later:  
+    We highly recommend using a large external hard drive or your school Google drive for all of the data this quarter.
 
 
 ## Deliverables 
 
 1. Return the packing slip that came with the kit with everyone's name to confirm you recieved all the necessary parts.  
 
-2. Submit a video of you teleoperating the robot arm.  
-You might need to wait on another team to finish assembling their leader / follower arm.  
-Please be patient with the other team(s) and assemble your arm as soon as possible.
+2. Submit your Dockerfile.
 
-3. Submit your Dockerfile.
-
-4. Submit a screenshot of the SO101 arm in Rviz2 in the Docker container.
-
-5. Upload your arms calibration to the course Google Drive to share with the class.   
+3. Upload your arms calibration to the course Google Drive to share with the class.   
 Any time you need to use a new arm, you should be able to download the calibration.  
 If you need to update the calibration at any point, make sure to update the file in the drive as well. 
 
-6. Submit your video of running inference after training with 50 examples.
+4. Submit your video of running inference after training with 50 examples.
 
 
 ## FAQ
