@@ -1,7 +1,7 @@
 {
   "name": "techin517",
   "build": {
-    "dockerfile": "../docker/Dockerfile",
+    "dockerfile": "./Dockerfile",
     "target": "dev"
   },
   "runArgs": [
