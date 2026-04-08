@@ -44,7 +44,6 @@
 | 11 | | **Final presentation** |
 
 
-
 **Presentations**
 
 - Teaching team check-in:
@@ -185,6 +184,45 @@ Consider training your models on your personal devices overnight to reduce relia
 **A:** Multiple teams need to share these robot arms.  
 Therefore, you can potentially add hardware and external tools if your project requires.  
 You must be able to rapidly return the robot to its base configuration to allow other teams to use it.
+
+**Q:** How do I record and train with 2 arms?  
+**A:** There are very few examples online using 2 arms with lerobot.  
+Below are some example commands to get you started.  
+Note how the train command sets the batch size, chunk size, and action steps.  
+**You will need the 5090 desktops to train for your project.**
+```bash
+lerobot-record \
+    --robot.type=bi_so100_follower \
+    --robot.left_arm_port=/dev/ttyACM2 \
+    --robot.right_arm_port=/dev/ttyACM3 \
+    --robot.id=bi_soa_follower \
+    --teleop.type=bi_so100_leader \
+    --teleop.left_arm_port=/dev/ttyACM0 \
+    --teleop.right_arm_port=/dev/ttyACM1 \
+    --teleop.id=bi_soa_leader \
+    --robot.cameras="{ left: {type: opencv, index_or_path: 8, width: 1920, height: 1080, fps: 30, fourcc: MJPG}, right: {type: opencv, index_or_path: 6, width: 1920, height: 1080, fps: 30, fourcc: MJPG}, overhead: {type: intelrealsense, serial_number_or_name: 349622072267, width: 640, height: 480, fps: 30} }" \
+    --display_data=false \
+    --dataset.repo_id=${HF_USER}/bi_test1 \
+    --dataset.num_episodes=10 \
+    --dataset.single_task="move the cube to the right" \
+    --dataset.push_to_hub=False \
+    --dataset.episode_time_s=30 \
+    --dataset.reset_time_s=30 \
+    --play_sounds=false
+```
+```bash
+lerobot-train \
+    --dataset.repo_id=${HF_USER}/bi_test1 \
+    --policy.type=act \
+    --output_dir=outputs/train/act_bi_test1 \
+    --job_name=act_bi_test1 \
+    --policy.device=cuda \
+    --wandb.enable=false \
+    --policy.repo_id=${HF_USER}/bi_test1 \
+    --batch_size=2 \
+    --policy.chunk_size=50 \
+    --policy.n_action_steps=50
+```
 
 
 ## Resources
