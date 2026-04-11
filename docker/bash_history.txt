@@ -1,1 +1,137 @@
 source ~/.bashrc
+ros2 topic list
+ros2 topic info
+ros2 topic info /image_raw/compressed
+ros2 topic list
+ros2 topic info /camera/camera/depth/image_rect_raw/compressed
+ros2 topic list
+ros2 topic info /follower/joint_states
+ros2 action list
+ros2 topic info /follower/arm_controller/follow_joint_trajectory
+ros2 action info /follower/arm_controller/follow_joint_trajectory
+ros2 topic list
+ros2 topic info /follower/arm_fwd_controller/commands
+ros2 topic info /follower/gripper_fwd_controller/commands
+find ~/techin516 -name "soa_act_contract.yaml"
+find ~/techin517 -name "soa_act_contract.yaml"
+ros2 action send_goal /rosetta_client/run_policy     rosetta_interfaces/action/RunPolicy "{prompt: 'picking up an aruco cube and placing it in a yellow tray'}
+ros2 action send_goal /rosetta_client/run_policy     rosetta_interfaces/action/RunPolicy "{prompt: 'picking up an aruco cube and placing it in a yellow tray'}"
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM0     --robot.id=gix-follower4     --robot.cameras="{ front: {type: opencv, index_or_path: /dev/video1, width: 640, height: 480, fps: 30, fourcc: MJPG}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM1     --teleop.id=gix-leader4     --display_data=false
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM1     --robot.id=gix-follower4     --robot.cameras="{ front: {type: opencv, index_or_path: /dev/video1, width: 640, height: 480, fps: 30, fourcc: MJPG}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM0     --teleop.id=gix-leader4     --display_data=false
+lerobot-find-port
+sudo chmod 666 /dev/ttyACM1
+sudo chmod 666 /dev/ttyACM0
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM0     --robot.id=gix-follower4     --robot.cameras="{ front: {type: opencv, index_or_path: /dev/video1, width: 640, height: 480, fps: 30, fourcc: MJPG}}"     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM1     --teleop.id=gix-leader4     --display_data=false
+lerobot-find-cameras opencv
+ls /dev/video0 /dev/video1
+ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video1 -p pixel_format:=mjpeg -p image_width:=640 -p image_height:=480 -p framerate:=30.0
+ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video1 -p pixel_format:=mjpeg2rgb -p image_width:=640 -p image_height:=480 -p framerate:=30.0
+ros2 run usb_cam usb_cam_node_exe
+ros2 launch realsense2_camera rs_launch.py serial_no:=349522071246
+ros2 launch realsense2_camera rs_launch.py serial_no:="'349522071246'"
+ls ~/techin517/ros2_ws/src/
+ls ~/techin517/ros2_ws/src/rosetta/launch/ 2>/dev/null
+ls ~/techin517/ros2_ws/src/soa_ros2/launch/ 2>/dev/null
+ls ~/techin517/ros2_ws/src/lerobot-robot-rosetta/launch/ 2>/dev/null
+cat ~/techin517/ros2_ws/src/lerobot-robot-rosetta/launch/rosetta_client_launch.py
+cat ~/techin517/ros2_ws/src/lerobot-robot-rosetta/soa_ros2/soa_bringup/config/soa_params.yaml
+cat ~/techin517/ros2_ws/src/lerobot-robot-rosetta/soa_ros2/soa_bringup/config/soa_cameras.yaml 2>/dev/null
+ls ~/techin517/ros2_ws/src/lerobot-robot-rosetta/soa_ros2/soa_bringup/launch/include/cameras.launch.py 2>/dev/null
+find ~/techin517/ros2_ws/src/soa_ros2/soa_bringup/config -type f
+find ~/techin517/ros2_ws/src/soa_ros2/soa_bringup/launch -type f
+cat ~/techin517/ros2_ws/src/soa_ros2/rosetta_contracts/soa_act_contract.yaml
+find ~/techin517/ros2_ws/src -name "*contract*" -type f
+cat ~/techin517/ros2_ws/src/soa_ros2/soa_bringup/config/soa_params.yaml
+cat ~/techin517/ros2_ws/src/soa_ros2/soa_bringup/config/soa_cameras.yaml
+cat ~/techin517/ros2_ws/src/soa_ros2/soa_bringup/rosetta_contracts/soa_act_contract.yaml
+cat ~/techin517/ros2_ws/src/soa_ros2/soa_bringup/config/soa_usb_cam.yaml
+cat ~/techin517/ros2_ws/src/soa_ros2/soa_bringup/config/soa_realsense2.yaml
+cd ros2_ws/
+colcon build
+source install/setup.bash
+ros2 launch soa_bringup soa_bringup.launch.py
+colcon build
+source install/setup.bash
+ros2 launch soa_bringup soa_bringup.launch.py
+ros2 launch soa_bringup soa_bringup.launch.py display:=true
+sudo chmod 666 /dev/ttyACM0
+sudo chmod 666 /dev/ttyACM1
+lerobot-find-port
+sudo chmod 666 /dev/ttyACM3
+ls /dev/ttyACM1
+sudo chmod 666 /dev/ttyACM1
+ros2 launch soa_bringup soa_bringup.launch.py display:=true
+lerobot-calibrate --robot.type=so101_follower --robot.port=/dev/ttyACM0 --robot.id=gix-follower4
+lerobot-calibrate --teleop.type=so101_leader --teleop.port=/dev/ttyACM1 --teleop.id=gix-leader4
+ros2 launch soa_bringup soa_bringup.launch.py display:=true
+ros2 launch rosetta rosetta_client_launch.py contract_path:=/home/ubuntu/techin517/ros2_ws/src/soa_ros2/soa_bringup/rosetta_contracts/soa_act_contract.yaml --log-level debug
+ros2 launch soa_bringup soa_bringup.launch.py display:=true
+ros2 launch soa_bringup soa_bringup.launch.py display:=true leader:=true
+sudo chmod 666 /dev/ttyACM1
+sudo chmod 666 /dev/ttyACM0
+sudo chmod 666 /dev/ttyACM2
+ros2 launch soa_bringup soa_bringup.launch.py display:=true leader:=true
+git status
+git add .
+git checkout main
+git pull origin/main
+git pull
+ls
+cd ..
+ls
+git log
+git log main
+git log
+git log main
+git branch -f main HEAD
+git log
+git checkout main
+git status
+git log
+git branch
+git submodule update --init --recursive ros2_ws
+git status
+cd ros2_ws/
+ls
+git status
+git restore --staged 
+git restore --staged *
+git restore --staged .
+git status
+cd ..
+ls
+git status
+git submodule update --init --recursive ros2_ws
+cd ros2_ws/
+git status
+git stash
+git status
+git submodule update --init --recursive ros2_ws
+cd ..
+git submodule update --init --recursive ros2_ws
+git stash list
+cd ros2_ws/
+git stash list
+git stash pop
+git restore --staged
+ls
+git reset --hard
+git stash list
+cd ..
+ls
+git status
+git add .
+git status
+git log
+git fetch origin main
+git log
+git status
+ros2 launch soa_bringup soa_bringup.launch.py display:=true
+ros2 launch soa_bringup soa_bringup.launch.py display:=true leader:=true
+ros2 launch rosetta rosetta_client_launch.py contract_path:=/home/ubuntu/techin517/ros2_ws/src/soa_ros2/soa_bringup/rosetta_contracts/soa_act_contract.yaml
+lerobot-teleoperate     --robot.type=so101_follower     --robot.port=/dev/ttyACM0     --robot.id=gix-follower4     --teleop.type=so101_leader     --teleop.port=/dev/ttyACM1     --teleop.id=gix-leader4     --display_data=false
+ros2 action send_goal /rosetta_client/run_policy     rosetta_interfaces/action/RunPolicy "{prompt: 'picking up an aruco cube and placing it in a yellow tray'}"
+ros2 action send_goal /rosetta_client/run_policy     rosetta_interfaces/action/RunPolicy "{prompt: 'picking up an aruco cube and placing it in a yellow tray'}"
+ros2 action send_goal /rorun_policy     rosetta_interfaces/action/RunPolicy "{prompt: 'picking up an aruco cube and placing it in a yellow tray'}"
+git status
+ros2 launch rosetta rosetta_client_launch.py contract_path:=/home/ubuntu/techin517/ros2_ws/src/soa_ros2/soa_bringup/rosetta_contracts/soa_act_contract.yaml
